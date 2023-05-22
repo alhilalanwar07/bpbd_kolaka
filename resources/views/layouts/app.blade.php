@@ -8,12 +8,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@hasSection('title') @yield('title') | @endif
-        {{ config('app.name', 'Laravel') }}</title>
+        {{ config('app.name', 'BPBD Kabupaten Kolaka Timur') }}</title>
 
     <!-- Scripts -->
     <!-- @vite(['resources/js/app.js']) -->
     @livewireStyles
-    <link rel="shortcut icon" href="{{ url('/') }}/assets/img/favicon.png">
+    <link rel="shortcut icon" href="{{ url('/') }}/assets/img/bpbd.png">
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"
         rel="stylesheet">
@@ -31,11 +31,12 @@
         <div class="header">
 
             <div class="header-left">
-                <a href="index.html" class="logo">
-                    <img src="assets/img/logo.png" alt="Logo">
+                <a href="/home" class="logo">
+                    <img src="{{url('/')}}/assets/img/bpbd.png" alt="Logo">
                 </a>
-                <a href="index.html" class="logo logo-small">
-                    <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
+                <a href="/home" class="logo logo-small">
+                    <span class=""></span>
+                    <!-- <img src="{{url('/')}}/assets/img/logo-small.png" alt="Logo" width="30" height="30"> -->
                 </a>
             </div>
             <div class="menu-toggle">
@@ -44,150 +45,59 @@
                 </a>
             </div>
 
-            <div class="top-nav-search">
-                <form>
-                    <input type="text" class="form-control" placeholder="Search here">
-                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-                </form>
+            <div class="header-center mt-2 mb-0">
+                <h3 class="mb-0 mt-2"></h3>
             </div>
             <a class="mobile_btn" id="mobile_btn">
                 <i class="fas fa-bars"></i>
             </a>
 
             <ul class="nav user-menu">
-                <li class="nav-item dropdown noti-dropdown language-drop me-2">
-                    <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                        <img src="assets/img/icons/header-icon-01.svg" alt="">
-                    </a>
-                    <div class="dropdown-menu ">
-                        <div class="noti-content">
-                            <div>
-                                <a class="dropdown-item" href="javascript:;"><i
-                                        class="flag flag-lr me-2"></i>English</a>
-                                <a class="dropdown-item" href="javascript:;"><i
-                                        class="flag flag-bl me-2"></i>Francais</a>
-                                <a class="dropdown-item" href="javascript:;"><i class="flag flag-cn me-2"></i>Turkce</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="nav-item dropdown noti-dropdown me-2">
-                    <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                        <img src="assets/img/icons/header-icon-05.svg" alt="">
-                    </a>
-                    <div class="dropdown-menu notifications">
-                        <div class="topnav-dropdown-header">
-                            <span class="notification-title">Notifications</span>
-                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-                        </div>
-                        <div class="noti-content">
-                            <ul class="notification-list">
-                                <li class="notification-message">
-                                    <a href="#">
-                                        <div class="media d-flex">
-                                            <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="assets/img/profiles/avatar-02.jpg">
-                                            </span>
-                                            <div class="media-body flex-grow-1">
-                                                <p class="noti-details"><span class="noti-title">Carlson Tech</span> has
-                                                    approved <span class="noti-title">your estimate</span></p>
-                                                <p class="noti-time"><span class="notification-time">4 mins ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="#">
-                                        <div class="media d-flex">
-                                            <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="assets/img/profiles/avatar-11.jpg">
-                                            </span>
-                                            <div class="media-body flex-grow-1">
-                                                <p class="noti-details"><span class="noti-title">International Software
-                                                        Inc</span> has sent you a invoice in the amount of <span
-                                                        class="noti-title">$218</span></p>
-                                                <p class="noti-time"><span class="notification-time">6 mins ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="#">
-                                        <div class="media d-flex">
-                                            <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="assets/img/profiles/avatar-17.jpg">
-                                            </span>
-                                            <div class="media-body flex-grow-1">
-                                                <p class="noti-details"><span class="noti-title">John Hendry</span> sent
-                                                    a cancellation request <span class="noti-title">Apple iPhone
-                                                        XR</span></p>
-                                                <p class="noti-time"><span class="notification-time">8 mins ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="#">
-                                        <div class="media d-flex">
-                                            <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image"
-                                                    src="assets/img/profiles/avatar-13.jpg">
-                                            </span>
-                                            <div class="media-body flex-grow-1">
-                                                <p class="noti-details"><span class="noti-title">Mercury Software
-                                                        Inc</span> added a new product <span class="noti-title">Apple
-                                                        MacBook Pro</span></p>
-                                                <p class="noti-time"><span class="notification-time">12 mins ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="topnav-dropdown-footer">
-                            <a href="#">View all Notifications</a>
-                        </div>
-                    </div>
-                </li>
 
                 <li class="nav-item zoom-screen me-2">
                     <a href="#" class="nav-link header-nav-list win-maximize">
-                        <img src="assets/img/icons/header-icon-04.svg" alt="">
+                        <img src="{{url('/')}}/assets/img/icons/header-icon-04.svg" alt="">
                     </a>
                 </li>
 
                 <li class="nav-item dropdown has-arrow new-user-menus">
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
-                            <img class="rounded-circle" src="assets/img/profiles/avatar-01.jpg" width="31"
-                                alt="Soeng Souy">
+                            <img class="rounded-circle" src="{{url('/')}}/assets/img/icons/teacher-icon-01.svg"
+                                width="31" alt="gambar admin">
                             <div class="user-text">
-                                <h6>Soeng Souy</h6>
-                                <p class="text-muted mb-0">Administrator</p>
+                                <h6>
+                                    @if (Auth::check())
+                                    {{ ucfirst(Auth::user()->name) }}
+                                    @endif
+                                </h6>
+                                <p class="text-muted mb-0">
+                                    @if (Auth::check())
+                                    {{ ucfirst(Auth::user()->role) }}
+                                    @endif
+                                </p>
                             </div>
                         </span>
                     </a>
                     <div class="dropdown-menu">
                         <div class="user-header">
                             <div class="avatar avatar-sm">
-                                <img src="assets/img/profiles/avatar-01.jpg" alt="User Image"
+                                <img src="{{url('/')}}/assets/img/icons/teacher-icon-01.svg" alt="User Image"
                                     class="avatar-img rounded-circle">
                             </div>
                             <div class="user-text">
-                                <h6>Soeng Souy</h6>
-                                <p class="text-muted mb-0">Administrator</p>
+                                <h6>
+                                    @if (Auth::check())
+                                    {{ ucfirst(Auth::user()->name) }}
+                                    @endif
+                                </h6>
+                                <p class="text-muted mb-0">
+                                    @if (Auth::check())
+                                    {{ ucfirst(Auth::user()->role) }}
+                                    @endif
+                                </p>
                             </div>
                         </div>
-                        <a class="dropdown-item" href="profile.html">My Profile</a>
-                        <a class="dropdown-item" href="inbox.html">Inbox</a>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
@@ -213,6 +123,52 @@
                             <span>Main Menu</span>
                         </li>
                         <!--Nav Bar Hooks - Do not delete!!-->
+
+                        <li class="nav-item {{ Request::is('home') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/home') }}"><i class="feather-grid"></i> Home</a>
+                        </li>
+                        @if (Auth::user()->role == 'posko')
+                        <li class="nav-item {{ Request::is('users') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/users') }}"><i class="feather-users"></i> Manajemen
+                                User</a>
+                        </li>
+
+                        <li class="nav-item {{ Request::is('satuans') ? 'active' : '' }}">
+                            <a href="{{ url('/satuans') }}" class="nav-link"><i class="feather-folder"></i> Satuan Barang</a>
+                        </li>
+                        <li class="nav-item {{ Request::is('barangs') ? 'active' : '' }}">
+                            <a href="{{ url('/barangs') }}" class="nav-link"><i class="feather-box"></i> Logistik</a>
+                        </li>
+                        <li class="nav-item {{ Request::is('kecamatans') ? 'active' : '' }}">
+                            <a href="{{ url('/kecamatans') }}" class="nav-link"><i class="feather-rss"></i>
+                                Kecamatan</a>
+                        </li>
+                        <li class="nav-item {{ Request::is('bencanas') ? 'active' : '' }}">
+                            <a href="{{ url('/bencanas') }}" class="nav-link"><i class="feather-cloud-lightning"></i>
+                                Bencana</a>
+                        </li>
+                        @endif
+                        <li class="nav-item {{ Request::is('poskos') ? 'active' : '' }}">
+                            <a href="{{ url('/poskos') }}" class="nav-link"><i class="feather-home"></i> Posko</a>
+                        </li>
+                        @if (Auth::user()->role == 'posko')
+                        <!-- <li class="nav-item {{ Request::is('logistiks') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/logistiks') }}"><i class="feather-package"></i> Logistik</a>
+                        </li> -->
+                        <li class="nav-item {{ Request::is('stoks') ? 'active' : '' }}">
+                            <a href="{{ url('/stoks') }}" class="nav-link"><i class="feather-database"></i>
+                                Stok Logistik</a>
+                        </li>
+                        @endif
+                        <li class="nav-item {{ Request::is('kebutuhan_poskos') ? 'active' : '' }}">
+                            <a href="{{ url('/kebutuhan_poskos') }}" class="nav-link"><i class="feather-layers"></i>
+                                Distribusi</a>
+                        </li>
+                        <!-- laporan -->
+                        <li class="nav-item {{ Request::is('laporan') ? 'active' : '' }}">
+                            <a href="{{ url('/laporan') }}" class="nav-link"><i class="feather-file-text"></i>
+                                Laporan</a>
+                        </li>
                     </ul>
                     @endauth()
                 </div>
@@ -225,18 +181,17 @@
                 @yield('content')
 
                 <footer>
-                    <p>Copyright © 2022 Dreamguys.</p>
+                    <p>Copyright © 2023 BPBD Kabupaten Kolaka Timur.</p>
                 </footer>
             </div>
         </div>
     </div>
     @livewireScripts
-    <script type="module">
-        const addModal = new bootstrap.Modal('#createDataModal');
-        const editModal = new bootstrap.Modal('#updateDataModal');
-        window.addEventListener('closeModal', () => {
-            addModal.hide();
-            editModal.hide();
+    <script>
+        window.addEventListener('closeModal', event => {
+            $("#updateDataModal").modal('hide');
+            $("#createDataModal").modal('hide');
+            $("#kembalikanDataModal").modal('hide');
         })
     </script>
     <script src="{{ url('/') }}/assets/js/jquery-3.6.0.min.js"></script>
@@ -249,3 +204,4 @@
 </body>
 
 </html>
+

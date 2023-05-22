@@ -2,20 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Barang;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class UserFactory extends Factory
+class BarangFactory extends Factory
 {
-    protected $model = User::class;
+    protected $model = Barang::class;
 
     public function definition()
     {
         return [
-			'name' => $this->faker->name,
-			'email' => $this->faker->name,
-			'role' => $this->faker->name,
+			'nama_barang' => $this->faker->name,
+			'status_barang' => $this->faker->name,
         ];
     }
 }
