@@ -15,11 +15,11 @@
                         @endif
                         <div>
                             <input wire:model='keyWord' type="text" class="form-control" name="search" id="search"
-                                placeholder="Search Kebutuhan Poskos">
+                                placeholder="Search...">
                         </div>
-                        <div class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#createDataModal">
+                        <!-- <div class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#createDataModal">
                             <i class="fa fa-plus"></i> Tambah Data
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -84,4 +84,13 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+    <script>
+        Livewire.on('reloadPage', function () {
+            setTimeout(function() {
+                window.location.reload(); // Me-reload halaman setelah 3 detik
+            }, 2000);
+        });
+    </script>
+    @endpush
 </div>

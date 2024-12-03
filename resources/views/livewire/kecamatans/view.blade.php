@@ -30,7 +30,7 @@
                             <thead class="thead">
                                 <tr>
                                     <td>#</td>
-                                    <th>Kode Kecamatan</th>
+                                    <!-- <th>Kode Kecamatan</th> -->
                                     <th>Nama Kecamatan</th>
                                     <th>Luas Wilayah</th>
                                     <th>Jumlah Penduduk</th>
@@ -41,10 +41,10 @@
                                 @forelse($kecamatans as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $row->kode_kecamatan }}</td>
+                                    <!-- <td>{{ $row->kode_kecamatan }}</td> -->
                                     <td>{{ $row->nama_kecamatan }}</td>
                                     <td>{{ $row->luas_wilayah }} KM<sup>2</sup></td>
-                                    <td>{{ $row->jumlah_penduduk }} Jiwa</td>
+                                    <td>{{ number_format($row->jumlah_penduduk, 0, ',', '.') }} Jiwa</td>
                                     <td width="90">
                                         <a data-bs-toggle="modal" data-bs-target="#updateDataModal"
                                             class="btn btn-sm btn-warning" wire:click="edit({{$row->id}})"><i

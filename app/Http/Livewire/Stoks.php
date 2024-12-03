@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Stok;
 use App\Models\Barang;
 use App\Models\Satuan;
+use App\Models\Logistik;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -69,6 +70,13 @@ class Stoks extends Component
 			'total_harga' => $this-> harga_satuan * $this-> jumlah_masuk,
         ]);
 
+        // menambah ke jumlah_barang di tabel logistik
+        // Logistik::where('barang_id', $this->barang_id)->increment('jumlah_barang', $this->jumlah_masuk);
+        // menambah ke stok di tabel barangs
+        Barang::find($this->barang_id)->update([
+            'stok' => $this->jumlah_masuk + Barang::find($this->barang_id)->stok,
+        ]);
+
         $this->resetInput();
 		$this->dispatchBrowserEvent('closeModal');
 		session()->flash('message', 'Stok Successfully created.');
@@ -98,6 +106,11 @@ class Stoks extends Component
 
         if ($this->selected_id) {
 			$record = Stok::find($this->selected_id);
+
+            $barang = Barang::find($this->barang_id)->update([
+                'stok' => $this->jumlah_masuk + Barang::find($this->barang_id)->stok - $record->jumlah_masuk,
+            ]);
+
             $record->update([
 			'barang_id' => $this-> barang_id,
 			'satuan_id' => $this-> satuan_id,
@@ -106,6 +119,8 @@ class Stoks extends Component
 			'harga_satuan' => $this-> harga_satuan,
 			'total_harga' => $this-> harga_satuan * $this-> jumlah_masuk,
             ]);
+
+            
 
             $this->resetInput();
             $this->dispatchBrowserEvent('closeModal');

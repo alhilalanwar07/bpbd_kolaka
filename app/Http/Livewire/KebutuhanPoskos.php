@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\KebutuhanPosko;
+use App\Models\Barang;
 
 class KebutuhanPoskos extends Component
 {
@@ -114,8 +115,40 @@ class KebutuhanPoskos extends Component
 
     public function distribusi($id){
         // status kebutuhan menjadi terdistribusi
-        KebutuhanPosko::where('id', $id)->update(['status_kebutuhan' => 'terdistribusi']);
+        // jika stok barang lebih besar dari jumlah kebutuhan
+        try {
+            $kebutuhan = KebutuhanPosko::where('id', $id)->first();
+            $barang = Barang::where('id', $kebutuhan->barang_id)->first();
+            if($barang->stok >= $kebutuhan->jumlah_kebutuhan){
+                $this->updateStatusKebutuhan($id);
+            }else{
+                session()->flash('message', 'Stok barang tidak mencukupi');
+            }
+        } catch (\Throwable $th) {
+            session()->flash('message', 'Stok barang tidak mencukupi');
+            // refresh page after 3 seconds
+        }
+        $this->emit('reloadPage');
+        // KebutuhanPosko::where('id', $id)->update(['status_kebutuhan' => 'terdistribusi']);
+        // // mengurangi jumlah stok di tabel barang
+        // $kebutuhan = KebutuhanPosko::where('id', $id)->first();
+        // $barang = Barang::where('id', $kebutuhan->barang_id)->first();
+        
+        // Barang::where('id', $kebutuhan->barang_id)
+        //         ->update(['stok' => $barang->stok - $kebutuhan->jumlah_kebutuhan]);
+        
+        // session()->flash('message', 'Kebutuhan berhasil didistribusikan');
+    }
 
+    public function updateStatusKebutuhan($id){
+        KebutuhanPosko::where('id', $id)->update(['status_kebutuhan' => 'terdistribusi']);
+        // mengurangi jumlah stok di tabel barang
+        $kebutuhan = KebutuhanPosko::where('id', $id)->first();
+        $barang = Barang::where('id', $kebutuhan->barang_id)->first();
+        
+        Barang::where('id', $kebutuhan->barang_id)
+                ->update(['stok' => $barang->stok - $kebutuhan->jumlah_kebutuhan]);
+        
         session()->flash('message', 'Kebutuhan berhasil didistribusikan');
     }
 }

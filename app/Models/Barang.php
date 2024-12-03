@@ -13,7 +13,7 @@ class Barang extends Model
 
     protected $table = 'barangs';
 
-    protected $fillable = ['nama_barang','status_barang'];
+    protected $fillable = ['nama_barang','status_barang', 'stok'];
 	
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

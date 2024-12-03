@@ -7,7 +7,7 @@
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div class="float-left">
-                                <h4><i class="feather-users"></i>
+                                <h4><i class="feather-printer"></i>
                                     Laporan Penyerahan</h4>
                             </div>
                             @if (session()->has('message'))

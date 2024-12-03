@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Posko;
+use App\Models\Barang;
+use App\Models\Bencana;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $logistik = Barang::count();
+        $posko = Posko::count();
+        $bencana = Posko::groupBy('bencana_id')->count();
+
+        return view('home', compact('logistik', 'posko', 'bencana'));
     }
 }

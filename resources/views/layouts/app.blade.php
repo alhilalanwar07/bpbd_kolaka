@@ -8,10 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@hasSection('title') @yield('title') | @endif
-        {{ config('app.name', 'BPBD Kabupaten Kolaka Timur') }}</title>
+        {{ config('app.name', 'BPBD Kabupaten Kolaka') }}</title>
 
     <!-- Scripts -->
-    <!-- @vite(['resources/js/app.js']) -->
     @livewireStyles
     <link rel="shortcut icon" href="{{ url('/') }}/assets/img/bpbd.png">
     <link
@@ -148,10 +147,12 @@
                                 Bencana</a>
                         </li>
                         @endif
+                        @if (Auth::user()->role == 'posko'|| Auth::user()->role == 'kedaruratan')
                         <li class="nav-item {{ Request::is('poskos') ? 'active' : '' }}">
                             <a href="{{ url('/poskos') }}" class="nav-link"><i class="feather-home"></i> Posko</a>
                         </li>
-                        @if (Auth::user()->role == 'posko')
+                        @endif
+                        @if (Auth::user()->role == 'posko'|| Auth::user()->role == 'logistik')
                         <!-- <li class="nav-item {{ Request::is('logistiks') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ url('/logistiks') }}"><i class="feather-package"></i> Logistik</a>
                         </li> -->
@@ -164,9 +165,13 @@
                             <a href="{{ url('/kebutuhan_poskos') }}" class="nav-link"><i class="feather-layers"></i>
                                 Distribusi</a>
                         </li>
+
+						<li class="nav-item {{ Request::is('dokumentasis') ? 'active' : '' }}">
+                            <a href="{{ url('/dokumentasis') }}" class="nav-link"><i class="feather-camera"></i> Dokumentasi</a>
+                        </li>
                         <!-- laporan -->
                         <li class="nav-item {{ Request::is('laporan') ? 'active' : '' }}">
-                            <a href="{{ url('/laporan') }}" class="nav-link"><i class="feather-file-text"></i>
+                            <a href="{{ url('/laporan') }}" class="nav-link"><i class="feather-printer"></i>
                                 Laporan</a>
                         </li>
                     </ul>
@@ -181,7 +186,7 @@
                 @yield('content')
 
                 <footer>
-                    <p>Copyright © 2023 BPBD Kabupaten Kolaka Timur.</p>
+                    <p>Copyright © 2023 BPBD Kabupaten Kolaka.</p>
                 </footer>
             </div>
         </div>
@@ -201,6 +206,7 @@
     <script src="{{ url('/') }}/assets/plugins/apexchart/apexcharts.min.js"></script>
     <script src="{{ url('/') }}/assets/plugins/apexchart/chart-data.js"></script>
     <script src="{{ url('/') }}/assets/js/script.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

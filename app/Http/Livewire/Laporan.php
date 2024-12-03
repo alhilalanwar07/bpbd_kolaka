@@ -19,7 +19,7 @@ class Laporan extends Component
         $satuan,
         $keterangan,
         $tanggal_pengiriman,
-        $status, $nama_penerima;
+        $status, $nama_penerima, $qrPetugas;
 
     protected $barangs,
         $poskos,
@@ -42,8 +42,8 @@ class Laporan extends Component
     {
         date_default_timezone_set('Asia/Makassar');
 
-        $image = base64_encode(file_get_contents(url('/assets/img/logokoltim.png')));
-        $image1 = base64_encode(file_get_contents(url('/assets/img/bpbd.png')));
+        // $image = base64_encode(file_get_contents(url('/assets/img/logokoltim.png')));
+        // $image1 = base64_encode(file_get_contents(url('/assets/img/bpbd.png')));
 
         $data = Posko::join('bencanas', 'poskos.bencana_id', '=', 'bencanas.id')
             ->join('kecamatans', 'poskos.kecamatan_id', '=', 'kecamatans.id')
@@ -62,18 +62,23 @@ class Laporan extends Component
         //menghitung masa kerja keseluruhan per hari ini
         $tglNow = Carbon::now();
 
-        $url = url('/');
-
         $namaPenerima = $this->nama_penerima;
 
-        dd($data, $kebutuhan_poskos, $tglNow, $url, $namaPenerima);
+        $logokoltim = url('/assets/img/logokoltim.png');
+        $bpbd = url('/assets/img/bpbd.png');
 
-        $qrPetugas = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($url . '/assets/img/qr/' . $this->qr_code_petugas));
+        // encode logokoltim dan bpbd
+        // $logokoltim = base64_encode(file_get_contents(url('/assets/img/logokoltim.png')));
+        // $bpbd = base64_encode(file_get_contents(url('/assets/img/bpbd.png')));
 
-        $pdf = Pdf::loadView('livewire.laporan-pdf', compact('image', 'data', 'kebutuhan_poskos', 'image1', 'tglNow', 'qrPetugas', 'namaPenerima'))->setPaper('a4', 'potrait');
-        return response()->streamDownload(
-            fn () => print($pdf),
-            Carbon::now()->format('Y-m-d') . '-Laporan-Posko-' . $data->nama_posko . '.pdf'
+        // dd($data, $kebutuhan_poskos, $tglNow, $url, $namaPenerima);
+
+        $qrPetugas = 'Nama Posko:' . $data->nama_posko . ' | ' . 'Nama Petugas:' . $this->nama_petugas . ' | ' . 'Nama Penerima:' . $this->nama_penerima . ' | ' . 'Tanggal Permintaan:' . $this->tanggal_permintaan;
+
+        $pdf = \Pdf::loadView('livewire.laproan-pdf', compact('data', 'kebutuhan_poskos', 'tglNow', 'qrPetugas', 'namaPenerima','bpbd', 'logokoltim'))->setOptions(['defaultFont' => 'sans-serif'])->output();
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf;
+        }, Carbon::now()->format('Y-m-d') . '-Laporan-Posko-' . $data->nama_posko . '.pdf'
         );
     }
 }

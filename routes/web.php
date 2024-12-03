@@ -16,7 +16,7 @@ use App\Http\Livewire\Poskos\DaftarPosko;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('login'));	
 });
 
 Auth::routes();
@@ -24,6 +24,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Route Hooks - Do not delete//
+	Route::view('dokumentasis', 'livewire.dokumentasis.index')->middleware('auth');
 	Route::view('barangs', 'livewire.barangs.index')->middleware('auth');
 	Route::view('kebutuhan_poskos', 'livewire.kebutuhan-poskos.index')->middleware('auth');
 	Route::view('stoks', 'livewire.stoks.index')->middleware('auth');

@@ -48,8 +48,7 @@ class DaftarPosko extends Component
             'jumlah_pengungsi' => 'required',
             'bencana_id' => 'required',
             'kecamatan_id' => 'required',
-            'email' => 'required',
-            'password' => 'required'
+            'email' => 'required|unique:users',
         ], [
             'name.required' => 'Nama Petugas tidak boleh kosong',
             'alamat_posko.required' => 'Alamat Posko tidak boleh kosong',
@@ -59,7 +58,7 @@ class DaftarPosko extends Component
             'bencana_id.required' => 'Bencana tidak boleh kosong',
             'kecamatan_id.required' => 'Kecamatan tidak boleh kosong',
             'email.required' => 'Email tidak boleh kosong',
-            'password.required' => 'Password tidak boleh kosong',
+            'email.unique' => 'Email sudah terdaftar, silahkan gunakan email lain',
         ]);
 
         // dd($this->name, $this->alamat_posko, $this->nama_posko, $this->no_hp, $this->latitude, $this->longitude, $this->jumlah_pengungsi, $this->bencana_id, $this->kecamatan_id, $this->email, $this->password);
@@ -68,10 +67,16 @@ class DaftarPosko extends Component
             'name' => $this->name,
             'email' => $this->email,
             'role' => 'kedaruratan',
-            'password' => Hash::make($this->password),
+            'password' => Hash::make("12345678"),
         ]);
 
         $userID = $user->id;
+
+        // jika longitude dan latitude kosong gunakan default
+        if ($this->longitude == null && $this->latitude == null) {
+            $this->longitude = 121.6728881;
+            $this->latitude = -3.9452802;
+        }
 
         $posko = Posko::create([
             'nama_posko' => $this->nama_posko,

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Preskool - Login</title>
+    <title>BPBD Kab. Kolaka - Login</title>
 
     <link rel="shortcut icon" href="assets/img/favicon.png">
 
@@ -27,18 +27,19 @@
             <div class="container">
                 <div class="loginbox">
                     <div class="login-left">
-                        <img class="img-fluid" src="assets/img/login.png" alt="Logo">
+                        <img class="img-fluid" src="{{ url('/') }}/assets/img/resque1.png"
+                            alt="Logo" width="100%">
                     </div>
                     <div class="login-right">
                         <div class="login-right-wrap">
-                            <h1>Welcome to Preskool</h1>
-                            <p class="account-subtitle">Need an account? <a href="/register">Sign Up</a></p>
-                            <h2>Sign in</h2>
+                            <h1>BPBD Kabupaten Kolaka </h1>
+                            <p class="account-subtitle">Ingin registrasi posko baru? <a href="/reg-posko">Mendaftar</a></p>
+                            <h2>Login</h2>
 
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Username <span class="login-danger">*</span></label>
+                                    <label>Email <span class="login-danger">*</span></label>
                                     <input id="email" type="email"
                                         class="form-control  @error('email') is-invalid @enderror"
                                         name="email" value="{{ old('email') }}" required
@@ -66,15 +67,6 @@
                                     @enderror
                                     <span class="profile-views feather-eye toggle-password"></span>
                                 </div>
-                                <div class="forgotpass">
-                                    <div class="remember-me">
-                                        <label class="custom_check mr-2 mb-0 d-inline-flex remember-me"> Remember me
-                                            <input type="checkbox" name="radio">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <a href="forgot-password.html">Forgot Password?</a>
-                                </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-block" type="submit">Login</button>
                                 </div>
@@ -82,16 +74,8 @@
 
                             <div class="login-or">
                                 <span class="or-line"></span>
-                                <span class="span-or">or</span>
+                                <span class="span-or"></span>
                             </div>
-
-                            <div class="social-login">
-                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-
                         </div>
                     </div>
                 </div>

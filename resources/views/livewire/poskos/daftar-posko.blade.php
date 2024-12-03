@@ -63,7 +63,7 @@
             <!-- button get lokasi for get long lat -->
             <div class="form-group">
                 <!-- <button class="btn btnsm btn-block btn-primary" wire:click="getlokasi">Dapatkan Lokasi</button> -->
-                <button type="button" class="btn btnsm btn-block btn-primary" onclick="getLocation()">Dapatkan Lokasi</button>
+                <button type="button" class="btn btn-sm btn-block btn-primary" onclick="getLocation()">Dapatkan Lokasi</button>
             </div>
             <!-- longitude & latitude -->
             <div class="form-group">

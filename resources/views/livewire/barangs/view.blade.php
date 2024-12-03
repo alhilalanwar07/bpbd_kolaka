@@ -31,6 +31,7 @@
                                 <tr>
                                     <td>#</td>
                                     <th>Nama Barang</th>
+                                    <th>Stok Gudang</th>
                                     <th>Status Barang</th>
                                     <td>ACTIONS</td>
                                 </tr>
@@ -40,6 +41,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ strtoupper($row->nama_barang) }}</td>
+                                    <td>{{ $row->stok }}</td>
                                     <td>
                                         <span
                                             class="badge badge-{{ $row->status_barang == 'tersedia' ? 'success' : 'danger' }}">

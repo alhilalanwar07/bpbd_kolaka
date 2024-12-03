@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Laporan Pendistribusian Bantuan Logistik {{ $data->nama_posko }}</title>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
 
     <style>
@@ -94,19 +92,19 @@
 <body>
     <div style="margin-left:50px;margin-right:30px">
         <table style="border-bottom: solid 1px black">
-            <th style="vertical-align: middle">
-                <img src="data:image/png;base64,{{ $image }}" alt="logo usn" style="width: 100px">
-            </th>
             <th>
-                <h2 style="margin-top:5px;margin-bottom:5px">PEMERINTAH KABUPATEN KOLAKA TIMUR</h2>
-                <h2 style="margin-top:5px;margin-bottom:5px">BADAN PENANGGULANGAN BENCANA DAERAH</h2>
+                <img src="data:image/png;base64, {!!base64_encode('https://bpbd-koltim.anonamenight.com/assets/img/bpbd.png'
+                                            ) !!} " style="width: 100px">
+            </th>
+            <th style="text-align: center;vertical-align: middle">
+                <h3 style="margin-top:5px;margin-bottom:5px">PEMERINTAH KABUPATEN Kolaka</h3>
+                <h3 style="margin-top:5px;margin-bottom:5px">BADAN PENANGGULANGAN BENCANA DAERAH</h3>
                 <h3 style="margin-top:3px;margin-bottom:5px;font-size:12px;font-weight:normal;">KOMPLEKS PERKANTORAN
-                    PEMDA KAB. KOLAKA TIMUR</h3>
-                <p style="margin-top:3px;margin-bottom:5px;font-size:12px;font-weight:normal;"> email : bpbdkoltim@gmail.com</p>
+                    PEMDA KAB. Kolaka</h3>
+                <p style="margin-top:3px;margin-bottom:5px;font-size:12px;font-weight:normal;"> email :
+                    bpbdkoltim@gmail.com</p>
             </th>
-            <th style="vertical-align: middle">
-                <img src="data:image/png;base64,{{ $image1 }}" alt="logo usn" style="width: 100px">
-            </th>
+            <th>    </th>
         </table>
         <table style="width: 100%;text-align:center">
             <h5 style="margin-top:5px;margin-bottom:5px">PENDISTIBUSIAN BANTUAN LOGISTIK</h5>
@@ -125,7 +123,7 @@
             </tr>
             <tr>
                 <td>Kabupaten</td>
-                <td colspan="3">: KOLAKA TIMUR</td>
+                <td colspan="3">: Kolaka</td>
             </tr>
         </table>
 
@@ -156,24 +154,24 @@
             <tr>
                 <td></td>
                 <td style="text-align: center">{{ ucwords($data->nama_kecamatan) }},<span style="margin-right: 50px">
-                    </span><span
-                        style="margin-right: 50px"> </span> 2023</td>
+                    </span><span style="margin-right: 50px"> </span> 2023</td>
             </tr>
             <tr>
                 <td style="text-align: center">
-                    Yang Menyerahkan
+                    Yang Menerima
                     <br><br>
                     <p></p>
                     <br><br>
-                    <b> {{ $namaPenerima}}</b>
+                    <b> {{ ucwords($namaPenerima) }}</b>
                 </td>
                 <td style="text-align: center">
                     Yang Menyerahkan
                     <br><br>
-                    <img src="data:image/png;base64,{!! $qrPetugas !!}" alt="qrcode" style="width: 40px">
-
+                    <img src="data:image/png;base64, {!!base64_encode(QrCode::format('png')->merge('https://bpbd-koltim.anonamenight.com/assets/img/bpbd.png',
+                                            .3, true)->size(200)->errorCorrection('H')->generate($qrPetugas)) !!} "
+                        style="width: 40px">
                     <br><br>
-                    <b> {{ $data->nama_petugas }}</b>
+                    <b> {{ ucwords($data->nama_petugas) }}</b>
                 </td>
             </tr>
         </table>

@@ -4,7 +4,10 @@ namespace App\Http\Livewire;
 
 use App\Models\Posko;
 use App\Models\Barang;
+use App\Models\Logistik;
 use App\Models\Satuan;
+use App\Models\Bencana;
+use App\Models\Kecamatan;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\KebutuhanPosko;
@@ -14,16 +17,33 @@ class Poskos extends Component
     use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $nama_posko, $nama_petugas, $alamat_posko, $no_hp, $latitude, $longitude, $jumlah_pengungsi, $status_posko, $bencana_id, $kecamatan_id, $user_id;
+    public $selected_id, $keyWord, $nama_posko, $nama_petugas, $alamat_posko, $no_hp, $latitude, $longitude, $jumlah_pengungsi, $status_posko, $bencana_id, $kecamatan_id, $user_id, $barang_id, $quantity, $satuan_id, $keterangan;
 
     public $rows = [], $barangs;
 
+    protected $rules = [
+        'rows.*.barang_id' => 'required',
+        'rows.*.quantity' => 'required',
+        'rows.*.satuan_id' => 'required',
+    ], $messages = [
+        'rows.*.barang_id.required' => 'Barang tidak boleh kosong.',
+        'rows.*.quantity.required' => 'Quantity tidak boleh kosong.',
+        'rows.*.satuan_id.required' => 'Satuan tidak boleh kosong.',
+    ];
+
     public function mount()
     {
-        $barangs = Barang::all();
+        $barangs = Barang::where('stok', '>', '0')->orderBy('created_at', 'DESC')->get();
         $satuans = Satuan::all();
         $this->barangs = $barangs;
         $this->satuans = $satuans;
+        if($this->selected_id != null){
+            // verifikasi jumlah_barang di tabel logistik dengan row.*.quantity. jika jumlah_barang < row.*.quantity, maka message error
+            $posko = Posko::findOrFail($this->selected_id);
+            $kebutuhanPosko = KebutuhanPosko::where('posko_id', $this->selected_id)->get();
+            $this->rows = $kebutuhanPosko->toArray();
+            // nanti dilanjutkan, saya istirahat dulu
+        }
     }
 
     public function render()
@@ -47,6 +67,8 @@ class Poskos extends Component
 						->orWhere('kecamatan_id', 'LIKE', $keyWord)
 						->orWhere('user_id', 'LIKE', $keyWord)
 						->paginate(10),
+            'bencanas' => Bencana::all(),
+            'kecamatans' => Kecamatan::all(),
         ]);
     }
 
@@ -74,30 +96,26 @@ class Poskos extends Component
     {
         $this->validate([
 		'nama_posko' => 'required',
-		'nama_petugas' => 'required',
 		'alamat_posko' => 'required',
-		'no_hp' => 'required',
 		'latitude' => 'required',
 		'longitude' => 'required',
 		'jumlah_pengungsi' => 'required',
-		'status_posko' => 'required',
 		'bencana_id' => 'required',
 		'kecamatan_id' => 'required',
-		'user_id' => 'required',
         ]);
 
         Posko::create([
 			'nama_posko' => $this-> nama_posko,
-			'nama_petugas' => $this-> nama_petugas,
+			'nama_petugas' => auth()->user()->name,
 			'alamat_posko' => $this-> alamat_posko,
-			'no_hp' => $this-> no_hp,
+			'no_hp' => Posko::where('user_id', auth()->user()->id)->first()->no_hp,
 			'latitude' => $this-> latitude,
 			'longitude' => $this-> longitude,
 			'jumlah_pengungsi' => $this-> jumlah_pengungsi,
-			'status_posko' => $this-> status_posko,
+			'status_posko' => 'nonaktif', // default 'nonaktif
 			'bencana_id' => $this-> bencana_id,
 			'kecamatan_id' => $this-> kecamatan_id,
-			'user_id' => $this-> user_id
+			'user_id' => auth()->user()->id,
         ]);
 
         $this->resetInput();
@@ -126,32 +144,24 @@ class Poskos extends Component
     {
         $this->validate([
 		'nama_posko' => 'required',
-		'nama_petugas' => 'required',
 		'alamat_posko' => 'required',
-		'no_hp' => 'required',
 		'latitude' => 'required',
 		'longitude' => 'required',
 		'jumlah_pengungsi' => 'required',
-		'status_posko' => 'required',
 		'bencana_id' => 'required',
 		'kecamatan_id' => 'required',
-		'user_id' => 'required',
         ]);
 
         if ($this->selected_id) {
 			$record = Posko::find($this->selected_id);
             $record->update([
 			'nama_posko' => $this-> nama_posko,
-			'nama_petugas' => $this-> nama_petugas,
 			'alamat_posko' => $this-> alamat_posko,
-			'no_hp' => $this-> no_hp,
 			'latitude' => $this-> latitude,
 			'longitude' => $this-> longitude,
 			'jumlah_pengungsi' => $this-> jumlah_pengungsi,
-			'status_posko' => $this-> status_posko,
 			'bencana_id' => $this-> bencana_id,
 			'kecamatan_id' => $this-> kecamatan_id,
-			'user_id' => $this-> user_id
             ]);
 
             $this->resetInput();
@@ -194,8 +204,9 @@ class Poskos extends Component
 
     public function saveRow(){
         $poskosID = Posko::find($this->selected_id)->id;
-
-        foreach ($this->rows as $row) {
+        $this->validate();
+        foreach ($this->rows as $index => $row) {
+            // simpan kebutuhan posko
             KebutuhanPosko::create([
                 'posko_id' => $poskosID,
                 'barang_id' => $row['barang_id'],
