@@ -186,7 +186,9 @@
                 @yield('content')
 
                 <footer>
-                    <p>Copyright © 2023 BPBD Kabupaten Kolaka.</p>
+                    <p>Copyright © 
+                    {{ date('Y') }}   
+                    BPBD Kabupaten Kolaka.</p>
                 </footer>
             </div>
         </div>
