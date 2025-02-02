@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Register |
-        {{ config('app.name', 'BPBD Kabupaten Kolaka') }}</title>
+        {{ config('app.name', 'BPBD Kabupaten Kolaka Timur') }}</title>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"

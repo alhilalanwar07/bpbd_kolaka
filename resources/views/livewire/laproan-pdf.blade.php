@@ -97,10 +97,10 @@
                                             ) !!} " style="width: 100px">
             </th>
             <th style="text-align: center;vertical-align: middle">
-                <h3 style="margin-top:5px;margin-bottom:5px">PEMERINTAH KABUPATEN Kolaka</h3>
+                <h3 style="margin-top:5px;margin-bottom:5px">PEMERINTAH KABUPATEN KOLAKA TIMUR</h3>
                 <h3 style="margin-top:5px;margin-bottom:5px">BADAN PENANGGULANGAN BENCANA DAERAH</h3>
                 <h3 style="margin-top:3px;margin-bottom:5px;font-size:12px;font-weight:normal;">KOMPLEKS PERKANTORAN
-                    PEMDA KAB. Kolaka</h3>
+                    PEMDA KAB. KOLAKA TIMUR</h3>
                 <p style="margin-top:3px;margin-bottom:5px;font-size:12px;font-weight:normal;"> email :
                     bpbdkoltim@gmail.com</p>
             </th>
@@ -123,7 +123,7 @@
             </tr>
             <tr>
                 <td>Kabupaten</td>
-                <td colspan="3">: Kolaka</td>
+                <td colspan="3">: KOLAKA TIMUR</td>
             </tr>
         </table>
 
